@@ -4,11 +4,6 @@ Created on Fri Apr 12 18:51:48 2019
 
 @author: Lorenzo
 """
-import numpy as np
-from matplotlib import pyplot as plt
-from pylab import rcParams
-from collections import Counter
-
 
 '''                                                                
 Allocate a share of your money into two options:
@@ -16,8 +11,15 @@ a) bond earning risk-free return 0.01
 b) stock with 50/50 chance of gain or loss, with gain of 50% and loss of 40%.
 '''
 
+import numpy as np
+# import pandas as pd
+from matplotlib import pyplot as plt
+# from pylab import rcParams
+from collections import Counter
+import matplotlib.pylab as pylab
+
 # creating array with 5 different percentages of wealth to bet (the third is the optimal share)
-bet_size = np.asarray([0.15, 0.20, 0.25, 0.50, 0.65])
+bet_size = np.asarray([0.05, 0.1, 0.20, 0.50, 0.65])
 s = bet_size.size
 
 # setting random seed
@@ -49,16 +51,24 @@ data[:,0] = 100
 
 # plotting the trajectories
 # the optimal share trajectory is the magenta, dashed line
-rcParams['figure.figsize'] = 12, 5
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (15, 5),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
 plt.gca().yaxis.grid(True)
 plt.xlabel("t")
 plt.ylabel("wealth")
 plt.yscale("log")
-plt.plot((data[0,]), color='green')
-plt.plot((data[1,]), color='red')
-plt.plot((data[2,]), color='magenta', linestyle='dashed')
-plt.plot((data[3,]), color='blue')
-plt.plot((data[4,]), color='yellow')
+plt.plot((data[0,]), color='green', label="f = 0.05")
+plt.plot((data[1,]), color='red', label="f = 0.1")
+plt.plot((data[2,]), color='magenta', linestyle='dashed', label="f = 0.2")
+plt.plot((data[3,]), color='blue', label="f = 0.5")
+plt.plot((data[4,]), color='yellow', label="f = 0.65")
+plt.legend(loc="upper left")
 
 # saving the first image
-plt.savefig('thesis - kelly criterion 2.png')
+plt.savefig('thesis - kelly criterion 2.pdf')

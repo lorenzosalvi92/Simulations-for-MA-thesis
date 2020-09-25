@@ -9,7 +9,12 @@ import random
 from matplotlib import pyplot as plt
 #from pylab import rcParams
 from collections import Counter
+from scipy.interpolate import interp1d
 np.seterr(divide = 'ignore') 
+# import pandas as pd
+# from pylab import rcParams
+# from collections import Counter
+import matplotlib.pylab as pylab
 
 # setting parameters
 # number of trials
@@ -99,14 +104,28 @@ terminal_values_1xkelly = np.log(data_1xkelly[:,10000])
 
 #####################################################
 
+int_1 = interp1d(successes, terminal_values_bayesian_kelly55)
+int_2 = interp1d(successes, terminal_values_1xkelly)
+
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (15, 5),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly55, color = 'red')
-plt.scatter(successes,terminal_values_1xkelly, color = 'blue')
+plt.plot(successes,int_1(successes), '-', color = 'red', label = 'Bayesian Kelly 5,5')
+plt.plot(successes,int_2(successes), '-', color = 'blue', label = 'Pure Kelly, p = .5')
+plt.legend(loc="upper left")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 5-5 vs kelly.png')
+plt.savefig('thesis - bayesian kelly 5-5 vs kelly.pdf')
+
+plt.show()
 
 #####################################################
 
@@ -160,16 +179,22 @@ terminal_values_1xkelly_wo = np.log(data_1xkelly_wo[:,10000])
 
 #####################################################
 
+int_3 = interp1d(successes, terminal_values_bayesian_kelly64)
+int_4 = interp1d(successes, terminal_values_1xkelly_wo)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly55, color = 'red')
-plt.scatter(successes,terminal_values_bayesian_kelly64, color = 'magenta')
-plt.scatter(successes,terminal_values_1xkelly, color = 'blue')
-plt.scatter(successes,terminal_values_1xkelly_wo, color = 'cyan')
+plt.plot(successes,int_1(successes), '-', color = 'red', label = 'Bayesian Kelly 5,5')
+plt.plot(successes,int_3(successes), '-', color = 'magenta', label = 'Bayesian Kelly 6,4')
+plt.plot(successes,int_2(successes), '-', color = 'blue', label = 'Pure Kelly, p = .5')
+plt.plot(successes,int_4(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .6')
+plt.legend(loc="lower right")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 5-5 vs kelly (1).png')
+plt.savefig('thesis - bayesian kelly 5-5 vs kelly (1).pdf')
+
+plt.show()
 
 #####################################################
 
@@ -223,16 +248,22 @@ terminal_values_1xkelly_wo1 = np.log(data_1xkelly_wo1[:,10000])
 
 #####################################################
 
+int_5 = interp1d(successes, terminal_values_bayesian_kelly46)
+int_6 = interp1d(successes, terminal_values_1xkelly_wo1)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly55, color = 'red')
-plt.scatter(successes,terminal_values_bayesian_kelly46, color = 'magenta')
-plt.scatter(successes,terminal_values_1xkelly, color = 'blue')
-plt.scatter(successes,terminal_values_1xkelly_wo1, color = 'cyan')
+plt.plot(successes,int_1(successes), '-', color = 'red', label = 'Bayesian Kelly 5,5')
+plt.plot(successes,int_5(successes), '-', color = 'magenta', label = 'Bayesian Kelly 4,6')
+plt.plot(successes,int_2(successes), '-', color = 'blue', label = 'Pure Kelly, p = .5')
+plt.plot(successes,int_6(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .4')
+plt.legend(loc="center right")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 5-5 vs kelly (2).png')
+plt.savefig('thesis - bayesian kelly 5-5 vs kelly (2).pdf')
+
+plt.show()
 
 #####################################################
 
@@ -276,24 +307,34 @@ terminal_values_halfkelly_wo1 = np.log(data_halfkelly_wo1[:,10000])
 
 #####################################################
 
+int_7 = interp1d(successes, terminal_values_halfkelly_wo)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly64, color = 'magenta')
-plt.scatter(successes,terminal_values_1xkelly_wo, color = 'cyan')
-plt.scatter(successes,terminal_values_halfkelly_wo, color = 'green')
+plt.plot(successes, int_3(successes), '-', color = 'magenta', label = 'Bayesian Kelly 6,4')
+plt.plot(successes, int_4(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .6')
+plt.plot(successes, int_7(successes), '-', color = 'green', label = 'Half of Pure Kelly (with p = .6)')
+plt.legend(loc="upper left")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 5-5 vs kelly (3).png')
+plt.savefig('thesis - bayesian kelly 5-5 vs kelly (3).pdf')
+
+plt.show()
 
 #######################################################
 
+int_8 = interp1d(successes, terminal_values_halfkelly_wo1)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly46, color = 'magenta')
-plt.scatter(successes,terminal_values_1xkelly_wo1, color = 'cyan')
-plt.scatter(successes,terminal_values_halfkelly_wo1, color = 'green')
+plt.plot(successes,int_5(successes), '-', color = 'magenta', label = 'Bayesian Kelly 4,6')
+plt.plot(successes,int_6(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .4')
+plt.plot(successes,int_8(successes), '-', color = 'green', label = 'Half of Pure Kelly (with p = .4)')
+plt.legend(loc="upper left")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 5-5 vs kelly (4).png')
+plt.savefig('thesis - bayesian kelly 5-5 vs kelly (4).pdf')
+
+plt.show()

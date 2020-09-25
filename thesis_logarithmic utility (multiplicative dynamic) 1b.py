@@ -17,8 +17,9 @@ Assume utility function of the following form: u(x) = log(x)
 import numpy as np
 # import pandas as pd
 from matplotlib import pyplot as plt
-from pylab import rcParams
+# from pylab import rcParams
 # from collections import Counter
+import matplotlib.pylab as pylab
 
 # storage vector for the outcomes of choosing b (20 trajectories)
 trajectories = np.zeros((20,10001))
@@ -53,13 +54,20 @@ EU_factor = np.log(0.95)
 trajectory_EU = list(np.log(100) +(EU_factor)*(t) for t in range(0, 10001))
 
 # plotting the trajectories
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (15, 5),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
 plt.xlabel('time', fontdict=None, labelpad=None)
 plt.ylabel('utility/logarithm of wealth', fontdict=None, labelpad=None)  
 plt.grid()                
-rcParams['figure.figsize'] = 15, 10
 for i in range(1, 20):
     plt.plot(trajectories[i,:])
 plt.plot(trajectory_EU, color='red')
 
 # saving the image
-plt.savefig('thesis - logarithmic utility 1b.png')
+plt.savefig('thesis - logarithmic utility 1b.pdf')

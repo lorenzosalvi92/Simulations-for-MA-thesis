@@ -7,9 +7,14 @@ Created on Fri Apr 12 18:51:48 2019
 import numpy as np
 import random
 from matplotlib import pyplot as plt
-#from pylab import rcParams
+from pylab import rcParams
 from collections import Counter
+from scipy.interpolate import interp1d
 np.seterr(divide = 'ignore') 
+# import pandas as pd
+# from pylab import rcParams
+# from collections import Counter
+import matplotlib.pylab as pylab
 
 # setting parameters
 # number of trials
@@ -97,14 +102,28 @@ terminal_values_1xkelly = np.log(data_1xkelly[:,10000])
 
 #####################################################
 
+int_1 = interp1d(successes, terminal_values_bayesian_kelly50k50k)
+int_2 = interp1d(successes, terminal_values_1xkelly)
+
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (15, 5),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
-plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly50k50k, color = 'red')
-plt.scatter(successes,terminal_values_1xkelly, color = 'blue')
+plt.grid()          
+plt.plot(successes,int_1(successes), '-', color = 'red', label = 'Bayesian Kelly 50k,50k')
+plt.plot(successes,int_2(successes), '-', color = 'blue', label = 'Pure Kelly, p = .5')
+plt.legend(loc="upper left")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 50k-50k vs kelly.png')
+plt.savefig('thesis - bayesian kelly 50k-50k vs kelly.pdf')
+
+plt.show()
 
 #####################################################
 
@@ -158,16 +177,20 @@ terminal_values_1xkelly_wo = np.log(data_1xkelly_wo[:,10000])
 
 #####################################################
 
+int_3 = interp1d(successes, terminal_values_bayesian_kelly_over)
+int_4 = interp1d(successes, terminal_values_1xkelly_wo)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
-plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly50k50k, color = 'red')
-plt.scatter(successes,terminal_values_bayesian_kelly_over, color = 'magenta')
-plt.scatter(successes,terminal_values_1xkelly, color = 'blue')
-plt.scatter(successes,terminal_values_1xkelly_wo, color = 'cyan')
+plt.grid()    
+plt.plot(successes,int_3(successes), '-', color = 'magenta', label = 'Bayesian Kelly 50480,49520')
+plt.plot(successes,int_4(successes), '-', color = 'cyan', label = 'Pure Kelly, p = 50480/100k')
+plt.legend(loc="upper left")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 50k-50k vs kelly (1).png')
+plt.savefig('thesis - bayesian kelly 50k-50k vs kelly (1).pdf')
+
+plt.show()
 
 #####################################################
 
@@ -221,15 +244,19 @@ terminal_values_1xkelly_wo1 = np.log(data_1xkelly_wo1[:,10000])
 
 #####################################################
 
+int_5 = interp1d(successes, terminal_values_bayesian_kelly_under)
+int_6 = interp1d(successes, terminal_values_1xkelly_wo1)
+
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
-plt.grid()            
-plt.scatter(successes,terminal_values_bayesian_kelly50k50k, color = 'red')
-plt.scatter(successes,terminal_values_bayesian_kelly_under, color = 'magenta')
-plt.scatter(successes,terminal_values_1xkelly, color = 'blue')
-plt.scatter(successes,terminal_values_1xkelly_wo1, color = 'cyan')
+plt.grid()   
+plt.plot(successes,int_5(successes), '-', color = 'magenta', label = 'Bayesian Kelly 49520,50480')
+plt.plot(successes,int_6(successes), '-', color = 'cyan', label = 'Pure Kelly, p = 49520/100k')
+plt.legend(loc="upper left")
 
 # saving the image
-plt.savefig('thesis - bayesian kelly 50k-50k vs kelly (2).png')
+plt.savefig('thesis - bayesian kelly 50k-50k vs kelly (2).pdf')
+
+plt.show()
 
 #####################################################
