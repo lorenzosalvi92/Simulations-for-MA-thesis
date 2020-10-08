@@ -58,7 +58,7 @@ plt.xlabel("STD")
 plt.ylabel("EV")
 
 # plotting the function
-x = np.linspace(-0.2,0.6)
+x = np.linspace(0,0.6)
 ax.plot(x,0.01 + (0.05-0.01)/0.45*x,color='black',label='Efficient frontier')
 plt.scatter(std_portfolio,ev_portfolio, s = 80, color = 'blue', label = '0<w_1<1') 
 #plt.scatter(0.5,0.0544, s = 80, color = 'green', label = 'w_1>1 and w_1<0') 
