@@ -5,6 +5,7 @@ Created on Thu Oct  8 15:44:59 2020
 @author: Lorenzo
 """
 
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -15,24 +16,26 @@ import matplotlib.pylab as pylab
 
 #################################################
 
+# returns of risk-free and risky option
 return_riskfree = 0.01
 expectedreturn_risky = 0.05
 
 returns_matrix = np.array([expectedreturn_risky,return_riskfree])
 
+# matrix with the decision-maker's fraction of wealth invested in each asset
 fractions_matrix = np.array([[0,1],[0.1,0.9],[0.2,0.8],[0.3,0.7],
                           [0.4,0.6],[0.5,0.5],[0.6,0.4],[0.7,0.3]
                           ,[0.8,0.2],[0.9,0.1],[1,0]])
-# notice that the second root is at approximately f = -0.175
-
+# EV of the portfolio
 ev_portfolio = fractions_matrix.dot(returns_matrix)
 
+# STD of risk-free and risky options
 std_riskfree = 0
 std_risky = (0.5*(0.5**2) + 0.5*(0.4**2) - 0.05**2)**(1/2)
 var_risky = (0.5*(0.5**2) + 0.5*(0.4**2) - 0.05**2)
 
 std_portfolio = np.array(np.zeros(11))
-
+# STD for each value of the fraction invested in the risky asset
 for i in range(0,11):
     std_portfolio[i,]=((fractions_matrix[i,0]**2)*(var_risky))**(1/2)
 
@@ -73,5 +76,8 @@ plt.legend(loc="upper left")
 
 # saving the image
 plt.savefig('thesis - markowitz vs kelly 1.pdf')
+
+#################################################
+
 
 

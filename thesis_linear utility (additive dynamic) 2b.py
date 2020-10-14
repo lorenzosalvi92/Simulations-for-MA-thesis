@@ -5,14 +5,7 @@ Created on Sat Jul 27 13:52:30 2019
 @author: Lorenzo
 """
 
-'''
-The decision-setting:
-
-a) get 1\$ with probability 1
-b) get +50\$ with probability 0.5 and -40\$ with probability 0.5
-    
-Assume utility function of the following form: u(x) = x (utility equals wealth)
-'''
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -20,6 +13,8 @@ from matplotlib import pyplot as plt
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # storage matrix for 20 trajectories
 trajectories = np.zeros((20,10001))
@@ -45,7 +40,7 @@ for i in range(0,20):
 # 100$ at time t
 trajectories[:,0] = 100
 
-# defining EU_constant
+# defining expected utility
 EU_constant = 5
 
 # defining trajectory EU
@@ -69,3 +64,5 @@ plt.plot(trajectory_EU, color='red')
 
 # saving the image
 plt.savefig('thesis - linear utility 2b.pdf')
+
+#################################################

@@ -4,15 +4,7 @@ Created on Fri Apr 24 11:31:06 2020
 
 @author: Lorenzo
 """
-
-"""
-The decision-setting:
-    
-a) status quo (100$)
-b) +50% with probability .5, -40% with probaiblity .5
-    
-EV: positive. Let us see what happens if 100k people accept b).
-"""
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -20,6 +12,8 @@ from matplotlib import pyplot as plt
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # storage vector for 20 trajectories
 trajectories = np.zeros((1000,10001))
@@ -45,7 +39,7 @@ for i in range(0,1000):
 # 100$ at time t
 trajectories[:,0] = 100
 
-# defining EU_factor
+# defining expected utility factor
 EU_factor = 1.05
 
 # defining trajectory EU
@@ -72,5 +66,5 @@ plt.plot(trajectory_EU, color='red')
 # saving the image
 plt.savefig('thesis - the illusion of EV.pdf')
 
-median = np.median(trajectories[:,10000])
-mean = np.mean(trajectories[:,10000])
+#################################################
+

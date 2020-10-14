@@ -5,15 +5,7 @@ Created on Fri Apr 24 11:31:06 2020
 @author: Lorenzo
 """
 
-"""
-The decision-setting:
-    
-a) get 1% of your wealth with probability 1
-b) +50% with probability .5, -40% with probaiblity .5
-    
-Assume utility function of the following form: u(x) = log(x) 
-"""
-
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -21,6 +13,8 @@ from matplotlib import pyplot as plt
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # storage vector for the outcomes of choosing b
 trajectory = np.zeros((1,10001))
@@ -46,11 +40,11 @@ trajectory[0,0] = 100
 # calculate logarithmic utility/log-wealth
 trajectory = np.log(trajectory)
 
-# defining EU_factor
-EU_factor = np.log(0.95)
+# defining expected utility term
+EU_term = np.log(0.95)
 
 # defining trajectory EU
-trajectory_EU = list(np.log(100) +(EU_factor)*(t) for t in range(0, 10001))
+trajectory_EU = list(np.log(100) +(EU_term)*(t) for t in range(0, 10001))
 
 # plotting the trajectory
 params = {'legend.fontsize': 'x-large',
@@ -69,3 +63,5 @@ plt.plot(trajectory_EU, color='red')
 
 # saving the image
 plt.savefig('thesis - logarithmic utility 1a.pdf')
+
+#################################################

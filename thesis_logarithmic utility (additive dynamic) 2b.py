@@ -4,14 +4,7 @@ Created on Sat Jul 27 13:52:30 2019
 
 @author: Lorenzo
 """
-
-'''
-The gamble:
-    
-You start with a wealth of 100$ and you play the game 1000 times repeatedly.
-At each time t, you have 0.5 probability of gaining 50$
-and 0.5 probability of losing 40$.
-'''
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -19,6 +12,8 @@ from matplotlib import pyplot as plt
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # storage matrix for 20 trajectories
 trajectories = np.zeros((20,10001))
@@ -44,11 +39,8 @@ for i in range(0,20):
 # 100$ at time t
 trajectories[:,0] = 100
 
-# defining EU_constant
-EU_constant = 5
-
-# defining trajectory EU
-trajectory_EU = list(100+(EU_constant)*(t) for t in range(0, 10001))
+# calculate logarithmic utility/log-wealth
+trajectories = np.log(trajectories)
 
 # plotting the trajectories + EU trajectory
 params = {'legend.fontsize': 'x-large',
@@ -60,8 +52,9 @@ params = {'legend.fontsize': 'x-large',
 pylab.rcParams.update(params)
 
 plt.xlabel('time', fontdict=None, labelpad=None)
-plt.ylabel('linear utility/wealth', fontdict=None, labelpad=None)   
+plt.ylabel('utility/logarithm of wealth', fontdict=None, labelpad=None)   
 plt.grid()            
 for i in range(0,20):
     plt.plot(trajectories[i,:])
-plt.plot(trajectory_EU, color='red')
+
+#################################################

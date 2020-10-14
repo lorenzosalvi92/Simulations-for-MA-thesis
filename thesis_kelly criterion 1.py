@@ -5,13 +5,7 @@ Created on Fri Apr 12 18:51:48 2019
 @author: Lorenzo
 """
 
-'''                                                                
-Bet:
-a) status quo (100\$)
-b) 50/50 chance of gain or loss, with gain of 50% and loss of 40%.
-    
-The Kelly criterion tells us that the optimal share of wealth to bet is 25\%.
-'''
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -19,6 +13,8 @@ from matplotlib import pyplot as plt
 # from pylab import rcParams
 from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # creating array with 6 different percentages of wealth to bet (the third is the optimal share)
 bet_size = np.asarray([0.1, 0.15, 0.25, 0.5, 0.6])
@@ -73,10 +69,8 @@ plt.legend(loc="upper left")
 # saving the first image
 plt.savefig('thesis - kelly criterion.pdf')
 
-'''
-plotting the rate of growth of capital as function of f. One sees right away
-that the optimal share is at 0.25
-'''
+#################################################
+
 # x stands for the share f
 x = np.linspace(-0.2,1)
 
@@ -93,12 +87,15 @@ ax.spines['top'].set_color('none')
 ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 # displaying a vertical intercept at the optimal value of x (i.e. of f)
-plt.axvline(x=0.25, linestyle='dashed')
+ax.scatter(0.25,  0.5 * np.log(1-0.25*0.4) + 0.5 * np.log(1 + 0.25*0.5), s=80, color = 'blue', label = 'Optimum')
+ax.plot([0.25, 0.25],[0, 0.5 * np.log(1-0.25*0.4) + 0.5 * np.log(1 + 0.25*0.5)], color='blue', linestyle='dashed')
+# plotting the function
+plt.plot(x,y, 'r',label = 'G')
 plt.xlabel("f")
 plt.ylabel("G")
-
-# plotting the function
-plt.plot(x,y, 'r')
+plt.legend(loc="upper left")
 
 # saving the second image
 plt.savefig('thesis - optimal leverage.pdf')
+
+#################################################

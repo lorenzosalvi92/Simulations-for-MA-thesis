@@ -5,12 +5,16 @@ Created on Thu Apr 30 14:34:29 2020
 @author: Lorenzo
 """
 
+#################################################
+
 import numpy as np
 # import pandas as pd
 from matplotlib import pyplot as plt
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # x stands for the share f
 x = np.linspace(-0.2,1)
@@ -27,45 +31,57 @@ ax.spines['right'].set_color('none')
 ax.spines['top'].set_color('none')
 ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
-# displaying a vertical intercept at the optimal value of x (i.e. of f)
-plt.axvline(x=0.20, linestyle='dashed')
+# displaying a vertical intercept at the maximum of the function
+ax.scatter(0.2, 0.5 * np.log(1-0.2*0.4+(1-0.2)*0.01) + 0.5 * np.log(1 + 0.2*0.5 + (1-0.2)*0.01), s=80, color = 'blue', label = 'Optimum')
+ax.plot([0.2, 0.2],[0, 0.5 * np.log(1-0.2*0.4+(1-0.2)*0.01) + 0.5 * np.log(1 + 0.2*0.5 + (1-0.2)*0.01)], color='blue', linestyle='dashed')
+# plotting the function
+plt.plot(x,y, 'r', label = 'G')
 plt.xlabel("f")
 plt.ylabel("G")
-
-# plotting the function
-plt.plot(x,y, 'r')
+plt.legend(loc="upper left")
 
 # saving the image
 plt.savefig('thesis - markowitz vs kelly 2 (1).pdf')
 
 #################################################
 
+# returns of risk-free and risky option
 return_riskfree = 0.01
 expectedreturn_risky = 0.05
 
 returns_matrix = np.array([expectedreturn_risky,return_riskfree])
 
+# matrix with the decision-maker's fraction of wealth invested in each asset
 fractions_matrix = np.array([[0,1],[0.1,0.9],[0.3,0.7],
                           [0.4,0.6],[0.5,0.5],[0.6,0.4],[0.7,0.3]
                           ,[0.8,0.2],[0.9,0.1],[1,0]])
-optimal_fraction = np.array([[0.2,0.8]])
-first_root_fraction = np.array([[0.575,1-0.575]])
-#second_root_fraction = np.array([[-0.175,1+0.175]])
 
+# optimum of function G
+optimal_fraction = np.array([[0.2,0.8]])
+# positive root of function G
+first_root_fraction = np.array([[0.575,1-0.575]])
+# negative root of function G
+second_root_fraction = np.array([[-0.175,1+0.175]])
+
+# EV portfolio
 ev_portfolio = fractions_matrix.dot(returns_matrix)
+# EV for optimum, first root and second root
 ev_optimum = optimal_fraction.dot(returns_matrix)
 ev_firstroot = first_root_fraction.dot(returns_matrix)
-#ev_secondroot = second_root_fraction.dot(returns_matrix)
+ev_secondroot = second_root_fraction.dot(returns_matrix)
 
+# STD of risk-free and risky options
 std_riskfree = 0
 std_risky = (0.5*(0.5**2) + 0.5*(0.4**2) - 0.05**2)**(1/2)
 var_risky = (0.5*(0.5**2) + 0.5*(0.4**2) - 0.05**2)
 
-std_portfolio = np.array(np.zeros(10))
+# STD for optimum, first root and second root
 std_optimum = (0.2**(2)*var_risky)**(1/2)
 std_firstroot = (0.575**(2)*var_risky)**(1/2)
-#std_secondroot = ((-0.175)**(2)*var_risky)**(1/2)
+std_secondroot = ((-0.175)**(2)*var_risky)**(1/2)
 
+std_portfolio = np.array(np.zeros(10))
+# STD for each value of the fraction invested in the risky asset
 for i in range(0,10):
     std_portfolio[i,]=((fractions_matrix[i,0]**2)*(var_risky))**(1/2)
 
@@ -103,11 +119,16 @@ plt.scatter(0.2, 0.01, marker='o', s=80, color="grey", label='Inefficient portfo
 plt.scatter(0.4,0.03, marker ='o', s=80, color="grey")
 plt.scatter([std_optimum], [ev_optimum], marker='o', s=80, color="gold", label = 'optimum')
 plt.scatter([std_firstroot], [ev_firstroot], marker='o', s=80, color="black", label = '0 growth') 
-#plt.scatter([std_secondroot], [ev_secondroot], marker='o', s=80, color="black") 
+plt.scatter([std_secondroot], [ev_secondroot], marker='o', s=80, color="black") 
 plt.legend(loc="upper left")
 
 # saving the image
 plt.savefig('thesis - markowitz vs kelly 2 (2).pdf')
+
+#################################################
+
+
+
    
 
     

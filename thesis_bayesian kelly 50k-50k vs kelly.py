@@ -4,10 +4,13 @@ Created on Fri Apr 12 18:51:48 2019
 
 @author: Lorenzo
 """
+
+#######################################################
+
 import numpy as np
 import random
 from matplotlib import pyplot as plt
-from pylab import rcParams
+#from pylab import rcParams
 from collections import Counter
 from scipy.interpolate import interp1d
 np.seterr(divide = 'ignore') 
@@ -15,6 +18,8 @@ np.seterr(divide = 'ignore')
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#######################################################
 
 # setting parameters
 # number of trials
@@ -46,9 +51,9 @@ counter = Counter(coinflips[0,:])
 r = 0.01
 
 # define "prior" Kelly fractions 
-baseline_1 = (50000/(50000+50000))*(1+r)*1/(0.4+r) - (1-(50000/(50000+50000)))*(1+r)*1/(0.5-r)
-baseline_2 = (50480/(50480+49520))*(1+r)*1/(0.4+r) - (1-(50480/(50480+49520)))*(1+r)*1/(0.5-r)
-baseline_3 = (49520/(50480+49520))*(1+r)*1/(0.4+r) - (1-(49520/(50480+49520)))*(1+r)*1/(0.5-r)
+fraction_1 = (50000/(50000+50000))*(1+r)*1/(0.4+r) - (1-(50000/(50000+50000)))*(1+r)*1/(0.5-r)
+fraction_2 = (50480/(50480+49520))*(1+r)*1/(0.4+r) - (1-(50480/(50480+49520)))*(1+r)*1/(0.5-r)
+fraction_3 = (49520/(50480+49520))*(1+r)*1/(0.4+r) - (1-(49520/(50480+49520)))*(1+r)*1/(0.5-r)
 
 #####################################################
 
@@ -102,6 +107,7 @@ terminal_values_1xkelly = np.log(data_1xkelly[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_1 = interp1d(successes, terminal_values_bayesian_kelly50k50k)
 int_2 = interp1d(successes, terminal_values_1xkelly)
 
@@ -177,13 +183,14 @@ terminal_values_1xkelly_wo = np.log(data_1xkelly_wo[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_3 = interp1d(successes, terminal_values_bayesian_kelly_over)
 int_4 = interp1d(successes, terminal_values_1xkelly_wo)
 
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()    
-plt.plot(successes,int_3(successes), '-', color = 'magenta', label = 'Bayesian Kelly 50480,49520')
+plt.plot(successes,int_3(successes), '-', color = 'black', label = 'Bayesian Kelly 50480,49520')
 plt.plot(successes,int_4(successes), '-', color = 'cyan', label = 'Pure Kelly, p = 50480/100k')
 plt.legend(loc="upper left")
 
@@ -244,13 +251,14 @@ terminal_values_1xkelly_wo1 = np.log(data_1xkelly_wo1[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_5 = interp1d(successes, terminal_values_bayesian_kelly_under)
 int_6 = interp1d(successes, terminal_values_1xkelly_wo1)
 
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()   
-plt.plot(successes,int_5(successes), '-', color = 'magenta', label = 'Bayesian Kelly 49520,50480')
+plt.plot(successes,int_5(successes), '-', color = 'black', label = 'Bayesian Kelly 49520,50480')
 plt.plot(successes,int_6(successes), '-', color = 'cyan', label = 'Pure Kelly, p = 49520/100k')
 plt.legend(loc="upper left")
 

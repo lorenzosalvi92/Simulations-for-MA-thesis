@@ -4,6 +4,9 @@ Created on Fri Apr 12 18:51:48 2019
 
 @author: Lorenzo
 """
+
+#################################################
+
 import numpy as np
 import random
 from matplotlib import pyplot as plt
@@ -15,6 +18,8 @@ np.seterr(divide = 'ignore')
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # setting parameters
 # number of trials
@@ -39,18 +44,19 @@ for j in range(0,21):
         coinflips[j,:] = x
         random.shuffle(coinflips[j,:])
 
-# test: check that number of 1s and 0s is correct
+# test: check that number of 1s and 0s is plausible
 counter = Counter(coinflips[0,:])
 
 # define interest rate
 r = 0.01
 
 # define "prior" Kelly fractions 
-baseline_1 = (5/(5+5))*(1+r)*1/(0.4+r) - (1-(5/(5+5)))*(1+r)*1/(0.5-r)
-baseline_2 = (6/(6+4))*(1+r)*1/(0.4+r) - (1-(6/(6+4)))*(1+r)*1/(0.5-r)
-baseline_3 = (4/(6+4))*(1+r)*1/(0.4+r) - (1-(4/(6+4)))*(1+r)*1/(0.5-r)
-baseline_4 = baseline_2*0.5
-baseline_5 = baseline_3*0.5
+fraction_1 = (5/(5+5))*(1+r)*1/(0.4+r) - (1-(5/(5+5)))*(1+r)*1/(0.5-r)
+fraction_2 = (6/(6+4))*(1+r)*1/(0.4+r) - (1-(6/(6+4)))*(1+r)*1/(0.5-r)
+fraction_3 = (4/(6+4))*(1+r)*1/(0.4+r) - (1-(4/(6+4)))*(1+r)*1/(0.5-r)
+# fractions for fractional Kelly
+fraction_4 = fraction_2*0.5
+fraction_5 = fraction_3*0.5
 
 #####################################################
 
@@ -104,6 +110,7 @@ terminal_values_1xkelly = np.log(data_1xkelly[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_1 = interp1d(successes, terminal_values_bayesian_kelly55)
 int_2 = interp1d(successes, terminal_values_1xkelly)
 
@@ -159,6 +166,7 @@ terminal_values_bayesian_kelly64 = np.log(data_bayesian_kelly64[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 data_1xkelly_wo = np.zeros((21,10000))
 
 for y in range(0,21):
@@ -179,6 +187,7 @@ terminal_values_1xkelly_wo = np.log(data_1xkelly_wo[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_3 = interp1d(successes, terminal_values_bayesian_kelly64)
 int_4 = interp1d(successes, terminal_values_1xkelly_wo)
 
@@ -186,7 +195,7 @@ plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
 plt.plot(successes,int_1(successes), '-', color = 'red', label = 'Bayesian Kelly 5,5')
-plt.plot(successes,int_3(successes), '-', color = 'magenta', label = 'Bayesian Kelly 6,4')
+plt.plot(successes,int_3(successes), '-', color = 'black', label = 'Bayesian Kelly 6,4')
 plt.plot(successes,int_2(successes), '-', color = 'blue', label = 'Pure Kelly, p = .5')
 plt.plot(successes,int_4(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .6')
 plt.legend(loc="lower right")
@@ -248,6 +257,7 @@ terminal_values_1xkelly_wo1 = np.log(data_1xkelly_wo1[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_5 = interp1d(successes, terminal_values_bayesian_kelly46)
 int_6 = interp1d(successes, terminal_values_1xkelly_wo1)
 
@@ -255,7 +265,7 @@ plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
 plt.plot(successes,int_1(successes), '-', color = 'red', label = 'Bayesian Kelly 5,5')
-plt.plot(successes,int_5(successes), '-', color = 'magenta', label = 'Bayesian Kelly 4,6')
+plt.plot(successes,int_5(successes), '-', color = 'black', label = 'Bayesian Kelly 4,6')
 plt.plot(successes,int_2(successes), '-', color = 'blue', label = 'Pure Kelly, p = .5')
 plt.plot(successes,int_6(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .4')
 plt.legend(loc="center right")
@@ -307,12 +317,13 @@ terminal_values_halfkelly_wo1 = np.log(data_halfkelly_wo1[:,10000])
 
 #####################################################
 
+# interpolating the values between the chosen points
 int_7 = interp1d(successes, terminal_values_halfkelly_wo)
 
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.plot(successes, int_3(successes), '-', color = 'magenta', label = 'Bayesian Kelly 6,4')
+plt.plot(successes, int_3(successes), '-', color = 'black', label = 'Bayesian Kelly 6,4')
 plt.plot(successes, int_4(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .6')
 plt.plot(successes, int_7(successes), '-', color = 'green', label = 'Half of Pure Kelly (with p = .6)')
 plt.legend(loc="upper left")
@@ -324,12 +335,13 @@ plt.show()
 
 #######################################################
 
+# interpolating the values between the chosen points
 int_8 = interp1d(successes, terminal_values_halfkelly_wo1)
 
 plt.ylabel('logarithm of terminal wealth', fontdict=None, labelpad=None)
 plt.xlabel('number of successes', fontdict=None, labelpad=None)   
 plt.grid()            
-plt.plot(successes,int_5(successes), '-', color = 'magenta', label = 'Bayesian Kelly 4,6')
+plt.plot(successes,int_5(successes), '-', color = 'black', label = 'Bayesian Kelly 4,6')
 plt.plot(successes,int_6(successes), '-', color = 'cyan', label = 'Pure Kelly, p = .4')
 plt.plot(successes,int_8(successes), '-', color = 'green', label = 'Half of Pure Kelly (with p = .4)')
 plt.legend(loc="upper left")
@@ -338,3 +350,5 @@ plt.legend(loc="upper left")
 plt.savefig('thesis - bayesian kelly 5-5 vs kelly (4).pdf')
 
 plt.show()
+
+#######################################################

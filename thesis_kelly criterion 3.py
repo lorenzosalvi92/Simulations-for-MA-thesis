@@ -5,6 +5,8 @@ Created on Thu Apr 30 14:34:29 2020
 @author: Lorenzo
 """
 
+#################################################
+
 import numpy as np
 # import pandas as pd
 from matplotlib import pyplot as plt
@@ -12,10 +14,7 @@ from matplotlib import pyplot as plt
 # from collections import Counter
 import matplotlib.pylab as pylab
 
-'''
-Table two of the document: "optimal wager as share of wealth for repeated bets":
-the rate of growth of capital as function of f.
-''' 
+#################################################
 
 # define desplayed domain
 f = np.linspace(0,0.6)
@@ -53,3 +52,6 @@ plt.legend(loc="upper left")
 
 # saving the figure
 plt.savefig('thesis - kelly criterion 1.pdf')
+
+#################################################
+

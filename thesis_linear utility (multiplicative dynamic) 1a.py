@@ -4,15 +4,7 @@ Created on Fri Apr 24 11:31:06 2020
 
 @author: Lorenzo
 """
-
-"""
-The decision-setting:
-    
-a) get 1% of your wealth with probability 1
-b) +50% with probability .5, -40% with probaiblity .5
-    
-Assume utility function of the following form: u(x) = x (utility equals wealth)
-"""
+#################################################
 
 import numpy as np
 # import pandas as pd
@@ -20,6 +12,8 @@ from matplotlib import pyplot as plt
 # from pylab import rcParams
 # from collections import Counter
 import matplotlib.pylab as pylab
+
+#################################################
 
 # storage vector for 20 trajectories
 trajectory = np.zeros((1,10001))
@@ -46,7 +40,7 @@ for element in range(1,10001):
 # 100$ at time t
 trajectory[0,0] = 100
 
-# defining EU_factor
+# defining expected utility factor
 EU_factor = 1.05
 
 # defining trajectory EU
@@ -70,4 +64,6 @@ plt.plot(trajectory_EU, color='red')
 
 # saving the image
 plt.savefig('thesis - linear utility 1a.pdf')
+
+#################################################
 
