@@ -63,7 +63,7 @@ plt.gcf().subplots_adjust(bottom=0.25)
 
 # plotting the function
 x = np.linspace(0,0.6)
-ax.plot(x,0.01 + (0.05-0.01)/0.45*x,color='black',label='Efficient frontier')
+ax.plot(x,0.01 + (0.05-0.01)/0.45*x,color='black',label='Capital allocation line (CAL)')
 plt.scatter(std_portfolio,ev_portfolio, s = 80, color = 'blue', label = '0<f<1') 
 #plt.scatter(0.5,0.0544, s = 80, color = 'green', label = 'w_1>1 and w_1<0') 
 #plt.scatter(-0.1,0.0133, s = 80, color = 'green') 

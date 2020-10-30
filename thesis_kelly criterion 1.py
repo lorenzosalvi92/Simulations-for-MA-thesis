@@ -90,7 +90,7 @@ ax.yaxis.set_ticks_position('left')
 ax.scatter(0.25,  0.5 * np.log(1-0.25*0.4) + 0.5 * np.log(1 + 0.25*0.5), s=80, color = 'blue', label = 'Optimum')
 ax.plot([0.25, 0.25],[0, 0.5 * np.log(1-0.25*0.4) + 0.5 * np.log(1 + 0.25*0.5)], color='blue', linestyle='dashed')
 # plotting the function
-plt.plot(x,y, 'r',label = 'G')
+plt.plot(x,y, 'r',label = 'G (long-run growth rate)')
 plt.xlabel("f")
 plt.ylabel("G")
 plt.legend(loc="upper left")

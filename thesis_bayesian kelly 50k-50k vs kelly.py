@@ -44,7 +44,7 @@ for j in range(0,21):
         coinflips[j,:] = x
         random.shuffle(coinflips[j,:])
 
-# test: check that number of 1s and 0s is correct
+# test: check that number of 1s and 0s is plausible (replace '0' with other columns' numbers to check them)
 counter = Counter(coinflips[0,:])
 
 # define interest rate
