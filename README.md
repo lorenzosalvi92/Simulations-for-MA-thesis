@@ -1,2 +1,2 @@
-# MAthesis
-Python simulations - Multiplicative and additive dynamics, optimal leverage and (Bayesian) Kelly criterion 
+# Python simulations for my MA-thesis
+Multiplicative and additive wealth-dynamics; calculation of the optimal leverage for multiplicative dynamics; (Bayesian) Kelly criterion 
